@@ -4,6 +4,7 @@
  * 3/15/2023
  */
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -42,8 +43,25 @@ public class Driver {
 		System.out.println("How would you like to search? ");
 		System.out.println("1 : Search by Book Title");
 		System.out.println("2 : Search by Author");
-		int searchBy = in.nextInt();
-		in.nextLine();
+		 // Validate input
+        int searchBy = -1;
+        while (true) {
+            try {
+                searchBy = in.nextInt();
+                in.nextLine();
+                if (searchBy == 1 || searchBy == 2) {
+                    break;
+                } else {
+                    System.out.println("Invalid selection. Please choose 1 or 2.");
+                    System.out.println("1 : Search by Book Title");
+                    System.out.println("2 : Search by Author");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number (1 or 2).");
+                in.next();
+            }
+        }
+        
 		List<ReadingListBooks> foundItems;
 		if (searchBy == 1) {
 			System.out.print("Enter the book title: ");
@@ -68,8 +86,24 @@ public class Driver {
 			System.out.println("Retrieved " + toEdit.getbookTitle() + " from " + toEdit.getbookAuthor());
 			System.out.println("1 : Update Book Title");
 			System.out.println("2 : Update Author");
-			int update = in.nextInt();
-			in.nextLine();
+			  // Validate input
+	        int update = -1;
+	        while (true) {
+	            try {
+	                update = in.nextInt();
+	                in.nextLine();
+	                if (update == 1 || update == 2) {
+	                    break;
+	                } else {
+	                    System.out.println("Invalid selection. Please choose 1 or 2.");
+	                    System.out.println("1 : Update Book Title");
+	                    System.out.println("2 : Update Author");
+	                }
+	            } catch (InputMismatchException e) {
+	                System.out.println("Invalid input. Please enter a number (1 or 2).");
+	                in.next();
+	            }
+	        }
 
 			// Update book title or author based on user's choice
 			if (update == 1) {
@@ -98,6 +132,9 @@ public class Driver {
 		//Display menu to prompt user for choice
 		System.out.println("--- Reading list ---");
 		while (goAgain) {
+			
+			
+			
 			System.out.println("  Options:");
 			System.out.println("  1 -- Add a book");
 			System.out.println("  2 -- Edit book entry");
@@ -105,9 +142,27 @@ public class Driver {
 			System.out.println("  4 -- View the list");
 			System.out.println("  5 -- Exit the program");
 			System.out.print("  You selected: ");
-			int selection = in.nextInt();
-			in.nextLine();
-
+			
+            //  input validation
+            int selection = -1;
+            while (true) {
+                try {
+                    selection = in.nextInt();
+                    in.nextLine();
+        		    // Check if the input is within the valid range
+                    if (selection >= 1 && selection <= 5) {
+                        break;
+                    } else { //if user enters number of range
+                        System.out.println("  Invalid selection. Please choose a number between 1 and 5.");
+                        System.out.print("  You selected: ");
+                    }
+                } catch (InputMismatchException e) { //if user inputs mismatching input(for example enters a letter instead of a number)
+                    System.out.println("  Invalid input. Please enter a number between 1 and 5.");
+                    System.out.print("  You selected: ");
+                    in.next();
+                }
+            }
+			
 			if (selection == 1) {
 				addAnItem();
 			} else if (selection == 2) {
