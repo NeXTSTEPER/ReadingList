@@ -1,4 +1,3 @@
-
 /**
  * @author - Alex Cox
  * CIS175 - Spring 2023
@@ -11,8 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-//Reading List item entity class
-
+// Reading List item entity class
 @Entity
 @Table(name="items")
 public class ReadingListBooks {
@@ -22,22 +20,21 @@ public class ReadingListBooks {
 	private String bookTitle;
 	private String bookAuthor;
 
-	
-	//default no arg constructor
-
+	// Default no-arg constructor
 	public ReadingListBooks() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReadingListBooks(int id, String store, String item) {
+	// Constructor with arguments
+	public ReadingListBooks(int id, String bookTitle, String bookAuthor) {
 		super();
 		this.id = id;
 		this.bookTitle = bookTitle;
 		this.bookAuthor = bookAuthor;
 	}
 
-	//getters and setters
+	// Getters and setters
 	public int getId() {
 		return id;
 	}
@@ -62,15 +59,16 @@ public class ReadingListBooks {
 		this.bookAuthor = bookAuthor;
 	}
 	
-	//Helper methods
-	 public ReadingListBooks(String bookTitle, String bookAuthor){ 
-		 this.bookTitle = bookTitle;
-		 this.bookAuthor = bookAuthor; 
+	// Helper methods
+	// Constructor with arguments for bookTitle and bookAuthor
+	public ReadingListBooks(String bookTitle, String bookAuthor) { 
+		this.bookTitle = bookTitle;
+		this.bookAuthor = bookAuthor; 
+	}
 	 
-	 }
-	 
-	 public String returnBookDetails( ) {
-		 return this.bookTitle + " by " + this.bookAuthor;
-	 }
+	// Method to return book details as a string
+	public String returnBookDetails() {
+		return this.bookTitle + " by " + this.bookAuthor;
+	}
 	
 }

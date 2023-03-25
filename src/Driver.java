@@ -14,6 +14,7 @@ public class Driver {
 	static Scanner in = new Scanner(System.in);
 	static ListItemHelper lih = new ListItemHelper();
 
+	// Function to add an item (book) to the reading list
 	private static void addAnItem() {
 		System.out.print("Enter a book: ");
 		String store = in.nextLine();
@@ -21,20 +22,22 @@ public class Driver {
 		String item = in.nextLine();
 		ReadingListBooks toAdd = new ReadingListBooks(store, item);
 		lih.insertItem(toAdd);
-
 	}
 
+	// Function to delete an item (book) from the reading list
 	private static void deleteAnItem() {
-		//prompts user to enter a book title to be deleted
+		// Prompts user to enter a book title to be deleted
 		System.out.print("Enter the book title to delete: ");
 		String bookTitle = in.nextLine();
-		//Enter the books author
+		// Enter the book's author
 		System.out.print("Enter the author to delete: ");
 		String bookAuthor = in.nextLine();
 
-		ReadingListBooks toDelete = new ReadingListBooks(bookTitle, bookAuthor); lih.deleteItem(toDelete);
+		ReadingListBooks toDelete = new ReadingListBooks(bookTitle, bookAuthor);
+		lih.deleteItem(toDelete);
 	}
 
+	// Function to edit an item (book) in the reading list
 	private static void editAnItem() {
 		System.out.println("How would you like to search? ");
 		System.out.println("1 : Search by Book Title");
@@ -46,12 +49,13 @@ public class Driver {
 			System.out.print("Enter the book title: ");
 			String bookTitle = in.nextLine();
 			foundItems = lih.searchForItemByStore(bookTitle);
-			} else {
+		} else {
 			System.out.print("Enter the author: ");
 			String bookAuthor = in.nextLine();
-			foundItems = lih.searchForItemByItem(bookAuthor); 
-			}
+			foundItems = lih.searchForItemByItem(bookAuthor);
+		}
 
+		// Display search results and allow user to edit the selected item
 		if (!foundItems.isEmpty()) {
 			System.out.println("Found Results.");
 			for (ReadingListBooks l : foundItems) {
@@ -67,6 +71,7 @@ public class Driver {
 			int update = in.nextInt();
 			in.nextLine();
 
+			// Update book title or author based on user's choice
 			if (update == 1) {
 				System.out.print("New Book: ");
 				String newBook = in.nextLine();
@@ -82,16 +87,15 @@ public class Driver {
 		} else {
 			System.out.println("---- No results found");
 		}
-
 	}
 
+	// Main method
 	public static void main(String[] args) {
 		runMenu();
-
 	}
-
 	public static void runMenu() {
 		boolean goAgain = true;
+		//Display menu to prompt user for choice
 		System.out.println("--- Reading list ---");
 		while (goAgain) {
 			System.out.println("  Options:");
@@ -131,3 +135,5 @@ public class Driver {
 	}
 
 }
+
+	// Method to run the main

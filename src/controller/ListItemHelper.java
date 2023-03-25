@@ -13,8 +13,11 @@ import javax.persistence.TypedQuery;
 
 
 public class ListItemHelper {
+	// Create EntityManagerFactory for "ReadingList" persistence unit
 	static EntityManagerFactory emfactory =
 			Persistence.createEntityManagerFactory("ReadingList");	
+	
+	// Method to insert a new ReadingListBooks item into the database
 	public void insertItem(ReadingListBooks rl) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -23,13 +26,14 @@ public class ListItemHelper {
 		em.close();
 	}
 	
+	// Method to fetch all ReadingListBooks items from the database
 	public List<ReadingListBooks> showAllItems(){
 		EntityManager em = emfactory.createEntityManager();
 		List<ReadingListBooks> allItems = em.createQuery("SELECT i FROM ReadingListBooks i").getResultList();
 		return allItems; 
 		}
 	
-
+	// Method to delete a ReadingListBooks item from the database
 	public void deleteItem(ReadingListBooks toDelete) {
 		 
 		EntityManager em = emfactory.createEntityManager(); 
@@ -48,7 +52,7 @@ public class ListItemHelper {
 		em.close();
 		}
 
-
+	// Method to search for a ReadingListBooks item by ID
 	public ReadingListBooks searchForItemById(int idToEdit) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -57,7 +61,7 @@ public class ListItemHelper {
 		em.close();
 		return found;
 	}
-
+	// Method to update a ReadingListBooks item 
 	public void updateItem(ReadingListBooks toEdit) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
@@ -67,6 +71,7 @@ public class ListItemHelper {
 		em.close();
 	}
 
+	// Method to search for a ReadingListBooks item by Title
 	public List<ReadingListBooks> searchForItemByStore(String bookTitle) { // TODO Auto-generated method stub
 		EntityManager em = emfactory.createEntityManager(); em.getTransaction().begin();
 		TypedQuery<ReadingListBooks> typedQuery = em.createQuery("select rl from ReadingListBooks rl where rl.bookTitle = :selectedTitle", ReadingListBooks.class); 
@@ -75,6 +80,7 @@ public class ListItemHelper {
 		return foundItems; 
 	}
 
+	// Method to search for a ReadingListBooks item by author
 	public List<ReadingListBooks> searchForItemByItem(String bookAuthor) { // TODO Auto-generated method stub
 		EntityManager em = emfactory.createEntityManager(); em.getTransaction().begin();
 		TypedQuery<ReadingListBooks> typedQuery = em.createQuery("select rl from ReadingListBooks rl where rl.bookAuthor = :selectedAuthor", ReadingListBooks.class); 
