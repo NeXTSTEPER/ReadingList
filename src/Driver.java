@@ -138,9 +138,10 @@ public class Driver {
 			System.out.println("  Options:");
 			System.out.println("  1 -- Add a book");
 			System.out.println("  2 -- Edit book entry");
-			System.out.println("  3 -- Delete an book");
-			System.out.println("  4 -- View the list");
-			System.out.println("  5 -- Exit the program");
+			System.out.println("  3 -- View the list");
+			System.out.println("  4 -- Delete a book");
+			System.out.println("  5 -- Delete the list");
+			System.out.println("  6 -- Exit the Program");
 			System.out.print("  You selected: ");
 			
             //  input validation
@@ -150,14 +151,14 @@ public class Driver {
                     selection = in.nextInt();
                     in.nextLine();
         		    // Check if the input is within the valid range
-                    if (selection >= 1 && selection <= 5) {
+                    if (selection >= 1 && selection <= 6) {
                         break;
                     } else { //if user enters number of range
-                        System.out.println("  Invalid selection. Please choose a number between 1 and 5.");
+                        System.out.println("  Invalid selection. Please choose a number between 1 and 6.");
                         System.out.print("  You selected: ");
                     }
                 } catch (InputMismatchException e) { //if user inputs mismatching input(for example enters a letter instead of a number)
-                    System.out.println("  Invalid input. Please enter a number between 1 and 5.");
+                    System.out.println("  Invalid input. Please enter a number between 1 and 6.");
                     System.out.print("  You selected: ");
                     in.next();
                 }
@@ -169,12 +170,15 @@ public class Driver {
 			} else if (selection == 2) {
 				editAnItem();
 			} else if (selection == 3) {
-				deleteAnItem();
-			} else if (selection == 4) {
 				viewTheList();
-			} else {
+			} else if (selection == 4) {
+				deleteAnItem();
+			}
+			else if (selection == 5) {
+				deleteTheList();
+			}else {
 				lih.cleanUp();
-				System.out.println("   SEE YA!   ");
+				System.out.println("   Ending Program   ");
 				goAgain = false;
 			}
 
@@ -182,6 +186,18 @@ public class Driver {
 
 	}
 
+private static void deleteTheList() {
+		
+		List<ReadingListBooks> allItems = lih.showAllItems();
+		for(ReadingListBooks singleItem : allItems){
+			String bookTitle = singleItem.getbookTitle();
+			String bookAuthor = singleItem.getbookAuthor();
+			ReadingListBooks toDelete = new ReadingListBooks(bookTitle, bookAuthor);
+			lih.deleteItem(toDelete);
+			}
+	}
+	
+	
 	//Method for showing the list
 	private static void viewTheList() {
 		

@@ -16,6 +16,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -53,12 +54,33 @@ public class ListItemHelper {
 		//we only want one result 
 		typedQuery.setMaxResults(1);
 		//get the result and save it into a new list item 
-		ReadingListBooks result = typedQuery.getSingleResult();
-		//remove it 
-		em.remove(result); 
-		em.getTransaction().commit(); 
-		em.close();
+		ReadingListBooks result = null;
+		 boolean noResult = true;
+
+		    while (noResult) {
+		        try {
+		            result = typedQuery.getSingleResult();
+		            noResult = false; // Exit the loop when a result is found
+		        } catch (NoResultException e) {
+		            System.out.println("No result found for the given query.");
+		            // Handle the exception, e.g., set the result to null or provide a default value
+		            result = null;
+		            break; // Exit the loop when there are no results
+		        }
+		    }
+
+		    if (result != null) {
+		        // Remove it
+		        em.remove(result);
+		        em.getTransaction().commit();
+		    } else {
+		        // Handle the case when there is no result to remove
+		        em.getTransaction().rollback();
+		    }
+
+		    em.close();
 		}
+		
 
 	// Method to search for a ReadingListBooks item by ID
 	public ReadingListBooks searchForItemById(int idToEdit) {
