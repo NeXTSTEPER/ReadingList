@@ -163,6 +163,7 @@ public class Driver {
                 }
             }
 			
+            //if structure for deciding what action to take based on user input
 			if (selection == 1) {
 				addAnItem();
 			} else if (selection == 2) {
@@ -181,6 +182,7 @@ public class Driver {
 
 	}
 
+	//Method for showing the list
 	private static void viewTheList() {
 		
 		List<ReadingListBooks> allItems = lih.showAllItems();
